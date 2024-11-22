@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.lower_border = lower_border
         self.upper_border = upper_border
 
-        self.image = pygame.surface.Surface((width, height))
+        self.image = pygame.image.load(r"Assets\bird_1.png")
         self.rect = self.image.get_rect()
 
         self.vert_speed = 0
@@ -31,5 +31,5 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = self.upper_border
 
 
-    def draw(self) -> None:
-        pygame.draw.rect(self.surf, self.col, self.rect)
+    # def draw(self) -> None:
+    #     pygame.draw.rect(self.surf, self.col, self.rect)

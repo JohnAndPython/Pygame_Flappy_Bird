@@ -9,7 +9,7 @@ class Bar(pygame.sprite.Sprite):
         self.id = id
         self.height = height
         self.width = width
-        
+
         if which == "top":
             self.image = pygame.image.load(r"Assets\pipe_top.png").convert_alpha()
         elif which == "bottom":
@@ -28,9 +28,3 @@ class Bar(pygame.sprite.Sprite):
 
     def update(self) -> None:
         self.rect.centerx -= self.speed
-
-
-    # def draw(self, test) -> None:
-    #     pygame.draw.rect(self.surf, self.col, self.rect)
-
-

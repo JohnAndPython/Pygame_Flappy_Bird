@@ -70,6 +70,7 @@ while True:
             if index == 0:
                 new_height = random.randint(50, 350)
                 bar.rect.bottom = new_height
+                gap = random.randint(120, 170)
 
             elif index == 1:
                 bar.rect.top = new_height + gap
@@ -84,8 +85,10 @@ while True:
     pipe_grp.update()
     pipe_grp.draw(screen)
 
-    player_1.update()
-    player_1.draw()
+    #player_1.update()
+    #player_1.draw()
+    pl_grp.update()
+    pl_grp.draw(screen)
     
     screen.blit(ground_surf, (0, HEIGHT - ground_rect.bottom))
     

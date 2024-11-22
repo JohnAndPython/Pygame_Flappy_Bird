@@ -18,19 +18,19 @@ ground_surf = pygame.image.load(r"Assets\ground.png").convert_alpha()
 ground_rect = ground_surf.get_rect()
 
 # Create initial pipes
-pipe_1 = Bar(screen, "top")
+pipe_1 = Bar("top")
 pipe_1.rect.centerx = 500
 pipe_1.rect.bottom = 200
 
-pipe_2 = Bar(screen, "bottom")
+pipe_2 = Bar("bottom")
 pipe_2.rect.centerx = 500
 pipe_2.rect.top = 350
 
-pipe_3 = Bar(screen, "top")
+pipe_3 = Bar("top")
 pipe_3.rect.centerx = 780
 pipe_3.rect.bottom = 100
 
-pipe_4 = Bar(screen, "bottom")
+pipe_4 = Bar("bottom")
 pipe_4.rect.centerx = 780
 pipe_4.rect.top = 250
 

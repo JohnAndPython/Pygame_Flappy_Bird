@@ -2,11 +2,11 @@ import pygame
 
 
 class Bar(pygame.sprite.Sprite):
-    def __init__(self, surf, col, width, height, pos) -> None:
+    def __init__(self, surf, col, width, height, pos, id) -> None:
         super().__init__()
 
         self.surf = surf
-
+        self.id = id
         self.height = height
         self.width = width
         self.image = pygame.surface.Surface((self.width, self.height))
@@ -25,7 +25,7 @@ class Bar(pygame.sprite.Sprite):
         self.rect.centerx -= self.speed
 
 
-    def draw(self) -> None:
-        pygame.draw.rect(self.surf, self.col, self.rect)
+    # def draw(self, test) -> None:
+    #     pygame.draw.rect(self.surf, self.col, self.rect)
 
 

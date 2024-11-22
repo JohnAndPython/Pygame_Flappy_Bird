@@ -15,19 +15,19 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 # Create initial pipes
-pipe_1 = Bar(screen, (200,0,0), 80, 150, (450, 0))
+pipe_1 = Bar(screen, (200,0,0), 80, 150, (450, 0), 1)
 pipe_1.rect.centerx = 500
 pipe_1.rect.top = 0
 
-pipe_2 = Bar(screen, (50,0,0), 80, 300, (450, 0))
+pipe_2 = Bar(screen, (50,0,0), 80, 300, (450, 0), 2)
 pipe_2.rect.centerx = 500
 pipe_2.rect.bottom = HEIGHT
 
-pipe_3 = Bar(screen, (0,0,200), 80, 200, (700, 0))
+pipe_3 = Bar(screen, (0,0,200), 80, 200, (700, 0), 3)
 pipe_3.rect.centerx = 780
 pipe_3.rect.top = 0
 
-pipe_4 = Bar(screen, (0,0,50), 80, 150, (700, 0))
+pipe_4 = Bar(screen, (0,0,50), 80, 150, (700, 0), 4)
 pipe_4.rect.centerx = 780
 pipe_4.rect.bottom = HEIGHT
 
@@ -42,6 +42,8 @@ pl_grp = pygame.sprite.GroupSingle(player_1)
 dictus = dict()
 
 gap = 150
+new_height = 0
+a = 0
 
 while True:
 
@@ -61,9 +63,10 @@ while True:
 
     for index, bar in enumerate(pipe_grp):
         if bar.rect.centerx <= -80:
-            bar.kill()
-            print(pipe_grp)
-            new_height = 0
+            
+            
+            
+            
             if index == 0:
                 new_height = random.randint(50, 350)
                 bar.chg_size(new_height)
@@ -72,12 +75,12 @@ while True:
                 bar.chg_size(HEIGHT - new_height - gap)
                 bar.rect.bottom = HEIGHT
 
+            #print(bar.id, new_height, HEIGHT - new_height - gap)
 
-
-            print(bar.rect.height)
+            bar.kill()
             bar.rect.centerx = 440
             pipe_grp.add(bar)
-            print(pipe_grp)
+
 
 
 

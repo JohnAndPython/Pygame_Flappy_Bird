@@ -1,12 +1,11 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, surf, lower_border, upper_border) -> None:
+    def __init__(self, surf, upper_border) -> None:
         super().__init__()
 
         self.surf = surf
 
-        self.lower_border = lower_border
         self.upper_border = upper_border
 
         self.sprites = []
@@ -27,9 +26,6 @@ class Player(pygame.sprite.Sprite):
     def update(self) -> None:
         self.rect.centery += self.vert_speed
         self.vert_speed = round(self.vert_speed + 0.5, 2)
-
-        if self.rect.bottom >= self.lower_border:
-            self.rect.bottom = self.lower_border
 
         if self.rect.top <= self.upper_border:
             self.rect.top = self.upper_border

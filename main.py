@@ -38,7 +38,7 @@ pipe_grp = pygame.sprite.Group()
 pipe_grp.add((pipe_1, pipe_2, pipe_3, pipe_4))
 
 # Create Player
-player_1 = Player(screen, HEIGHT - ground_rect.bottom, 0)
+player_1 = Player(screen, 0)
 player_1.rect.center = (100, 250)
 pl_grp = pygame.sprite.GroupSingle(player_1)
 

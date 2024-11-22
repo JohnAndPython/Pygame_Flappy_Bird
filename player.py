@@ -13,10 +13,14 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.vert_speed = 0
-        self.jump_speed = -10
+        self.jump_speed = -7
+
+
+    def jump(self) -> None:
+        self.vert_speed = self.jump_speed
+
 
     def update(self) -> None:
-        print(self.vert_speed)
         self.rect.centery += self.vert_speed
         self.vert_speed = round(self.vert_speed + 0.5, 2)
 

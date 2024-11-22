@@ -7,19 +7,23 @@ class Bar(pygame.sprite.Sprite):
 
         self.surf = surf
 
-        self.image = pygame.surface.Surface((width, height))
-        
-        self.pos = pos
-        self.col = col
+        self.height = height
+        self.width = width
+        self.image = pygame.surface.Surface((self.width, self.height))
         self.rect = self.image.get_rect()
 
+        self.pos = pos
+        self.col = col
+        
         self.speed = 2
+
+    def chg_size(self, height) -> None:
+        self.rect.height = height
+
 
     def update(self) -> None:
         self.rect.centerx -= self.speed
 
-
-        
 
     def draw(self) -> None:
         pygame.draw.rect(self.surf, self.col, self.rect)

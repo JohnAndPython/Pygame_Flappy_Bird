@@ -1,6 +1,7 @@
 import pygame
 import sys
 import time
+import random
 
 from pipe import Bar
 from player import Player
@@ -13,38 +14,33 @@ HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
-bar_1 = Bar(screen, (0,0,0), 80, 100, (700, 0))
-bar_1.rect.centerx = 900
-bar_1.rect.top = 0
+# Create initial pipes
+pipe_1 = Bar(screen, (0,0,0), 80, 150, (450, 0))
+pipe_1.rect.centerx = 500
+pipe_1.rect.top = 0
 
+pipe_2 = Bar(screen, (0,0,0), 80, 300, (450, 0))
+pipe_2.rect.centerx = 500
+pipe_2.rect.bottom = 600
 
-bar_2 = Bar(screen, (0,0,0), 80, 300, (700, 0))
-bar_2.rect.centerx = 900
-bar_2.rect.bottom = 600
+pipe_3 = Bar(screen, (0,0,0), 80, 200, (700, 0))
+pipe_3.rect.centerx = 780
+pipe_3.rect.top = 0
 
+pipe_4 = Bar(screen, (0,0,0), 80, 150, (700, 0))
+pipe_4.rect.centerx = 780
+pipe_4.rect.bottom = 600
 
-bar_3 = Bar(screen, (0,0,0), 80, 200, (700, 0))
-bar_3.rect.centerx = 1200
-bar_3.rect.top = 0
+pipe_grp = pygame.sprite.Group()
+pipe_grp.add((pipe_1, pipe_2, pipe_3, pipe_4))
 
-
-bar_4 = Bar(screen, (0,0,0), 80, 150, (700, 0))
-bar_4.rect.centerx = 1200
-bar_4.rect.bottom = 600
-
-
-
-
-
-o_group = pygame.sprite.Group()
-o_group.add((bar_1, bar_2, bar_3, bar_4))
-
-
+# Create Player
 player_1 = Player(screen, (0,0,255), 40, 40, HEIGHT, 0)
 player_1.rect.center = (100, 250)
 pl_grp = pygame.sprite.GroupSingle(player_1)
 
 dictus = dict()
+
 
 while True:
 
@@ -56,34 +52,34 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                player_1.vert_speed = player_1.jump_speed
+                player_1.jump()
                 
-
-    pygame.display.update()
-
     screen.fill((255,255,255))
     
-    o_group.update()
-    o_group.draw(screen)
 
-    for bar in o_group:
+
+    for bar in pipe_grp:
         if bar.rect.centerx <= -80:
             bar.kill()
-            bar.rect.centerx = 700
-            o_group.add(bar)
+            new_height = random.randint(50, 350)
+            bar.chg_size(new_height)
+            bar.rect.top = 0
+            print(bar.rect.height)
+            bar.rect.centerx = 440
+            pipe_grp.add(bar)
 
-    # keys = pygame.key.get_pressed()
-    # if keys[pygame.K_SPACE]:
-    #     player_1.update()
-        #player_1.move_up()
+
+
+    pipe_grp.update()
+    pipe_grp.draw(screen)
 
         
     player_1.update()
     #player_1.move_down()
     player_1.draw()
     
-    dictus = pygame.sprite.groupcollide(o_group, pl_grp, False, False)
+    dictus = pygame.sprite.groupcollide(pipe_grp, pl_grp, False, False)
 
-    
+    pygame.display.update()
     
     clock.tick(60)

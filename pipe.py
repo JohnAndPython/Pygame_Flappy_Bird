@@ -2,14 +2,19 @@ import pygame
 
 
 class Bar(pygame.sprite.Sprite):
-    def __init__(self, surf, col, width, height, pos, id) -> None:
+    def __init__(self, surf, col, width, height, pos, id, which) -> None:
         super().__init__()
 
         self.surf = surf
         self.id = id
         self.height = height
         self.width = width
-        self.image = pygame.surface.Surface((self.width, self.height))
+        
+        if which == "top":
+            self.image = pygame.image.load(r"Assets\pipe_top.png").convert_alpha()
+        elif which == "bottom":
+            self.image = pygame.image.load(r"Assets\pipe_bottom.png").convert_alpha()
+
         self.rect = self.image.get_rect()
 
         self.pos = pos

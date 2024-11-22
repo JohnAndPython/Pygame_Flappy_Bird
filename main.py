@@ -39,7 +39,7 @@ pipe_grp = pygame.sprite.Group()
 pipe_grp.add((pipe_1, pipe_2, pipe_3, pipe_4))
 
 # Create Player
-player_1 = Player(screen, (0,0,255), 40, 40, HEIGHT - ground_rect.bottom, 0)
+player_1 = Player(screen, HEIGHT - ground_rect.bottom, 0)
 player_1.rect.center = (100, 250)
 pl_grp = pygame.sprite.GroupSingle(player_1)
 
@@ -47,7 +47,6 @@ dictus = dict()
 
 gap = 150
 new_height = 0
-a = 0
 
 while True:
 
@@ -70,7 +69,7 @@ while True:
             if index == 0:
                 new_height = random.randint(50, 350)
                 bar.rect.bottom = new_height
-                gap = random.randint(120, 170)
+                gap = random.randint(150, 170)
 
             elif index == 1:
                 bar.rect.top = new_height + gap
@@ -80,22 +79,18 @@ while True:
             pipe_grp.add(bar)
 
 
-
-
     pipe_grp.update()
     pipe_grp.draw(screen)
 
-    #player_1.update()
-    #player_1.draw()
     pl_grp.update()
     pl_grp.draw(screen)
+    player_1.animate()
     
     screen.blit(ground_surf, (0, HEIGHT - ground_rect.bottom))
     
     dictus = pygame.sprite.groupcollide(pipe_grp, pl_grp, False, False)
 
-    print(dictus)
-
+    
     pygame.display.update()
     
     clock.tick(60)

@@ -1,15 +1,19 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, surf, col, width, height, lower_border, upper_border) -> None:
+    def __init__(self, surf, lower_border, upper_border) -> None:
         super().__init__()
 
         self.surf = surf
-        self.col = col
+
         self.lower_border = lower_border
         self.upper_border = upper_border
 
-        self.image = pygame.image.load(r"Assets\bird_1.png")
+        self.sprites = []
+        self.sprites.append(pygame.image.load(r"Assets\bird_1.png").convert_alpha())
+        self.sprites.append(pygame.image.load(r"Assets\bird_2.png").convert_alpha())
+        self.cur_sprite = 0
+        self.image = self.sprites[self.cur_sprite]
         self.rect = self.image.get_rect()
 
         self.vert_speed = 0
@@ -31,5 +35,10 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = self.upper_border
 
 
-    # def draw(self) -> None:
-    #     pygame.draw.rect(self.surf, self.col, self.rect)
+    def animate(self) -> None:
+        self.cur_sprite = round(self.cur_sprite + 0.1, 1)
+
+        if self.cur_sprite >= len(self.sprites):
+            self.cur_sprite = 0
+
+        self.image = self.sprites[int(self.cur_sprite)]

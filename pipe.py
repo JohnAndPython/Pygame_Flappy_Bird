@@ -15,10 +15,7 @@ class Bar(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         self.speed = 2
-
-    def chg_size(self, height) -> None:
-        self.rect.height = height
-
+        
 
     def update(self) -> None:
         self.rect.centerx -= self.speed

@@ -17,7 +17,6 @@ clock = pygame.time.Clock()
 ground_surf = pygame.image.load(r"Assets\ground.png").convert_alpha()
 ground_rect = ground_surf.get_rect()
 
-
 # Create initial pipes
 pipe_1 = Bar(screen, "top")
 pipe_1.rect.centerx = 500
@@ -42,8 +41,6 @@ pipe_grp.add((pipe_1, pipe_2, pipe_3, pipe_4))
 player_1 = Player(screen, HEIGHT - ground_rect.bottom, 0)
 player_1.rect.center = (100, 250)
 pl_grp = pygame.sprite.GroupSingle(player_1)
-
-dictus = dict()
 
 gap = 150
 new_height = 0
@@ -78,17 +75,20 @@ while True:
             bar.rect.centerx = 440
             pipe_grp.add(bar)
 
+    # Chck for Game Over
+    if (not pygame.sprite.groupcollide(pipe_grp, pl_grp, False, False)) and (not player_1.rect.bottom >= HEIGHT - ground_rect.height):
+        pipe_grp.update()
+        pl_grp.update()
 
-    pipe_grp.update()
+    # Draw pipes and player
     pipe_grp.draw(screen)
-
-    pl_grp.update()
     pl_grp.draw(screen)
+
+    # Anminate player
     player_1.animate()
     
+    # Draw ground
     screen.blit(ground_surf, (0, HEIGHT - ground_rect.bottom))
-    
-    dictus = pygame.sprite.groupcollide(pipe_grp, pl_grp, False, False)
 
     
     pygame.display.update()

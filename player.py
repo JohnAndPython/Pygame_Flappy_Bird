@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.sprites.append(pygame.image.load(r"Assets\bird_2.png").convert_alpha())
         self.cur_sprite = 0
         self.image = self.sprites[self.cur_sprite]
-        self.rect = self.image.get_rect()
+        self.rect: pygame.rect.Rect = self.image.get_rect()
 
         self.vert_speed = 0
         self.jump_speed = -7

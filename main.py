@@ -19,19 +19,19 @@ ground_rect = ground_surf.get_rect()
 
 
 # Create initial pipes
-pipe_1 = Bar(screen, (200,0,0), 80, 150, (450, 0), 1, "top")
+pipe_1 = Bar(screen, "top")
 pipe_1.rect.centerx = 500
 pipe_1.rect.bottom = 200
 
-pipe_2 = Bar(screen, (50,0,0), 80, 300, (450, 0), 2, "bottom")
+pipe_2 = Bar(screen, "bottom")
 pipe_2.rect.centerx = 500
 pipe_2.rect.top = 350
 
-pipe_3 = Bar(screen, (0,0,200), 80, 200, (700, 0), 3, "top")
+pipe_3 = Bar(screen, "top")
 pipe_3.rect.centerx = 780
 pipe_3.rect.bottom = 100
 
-pipe_4 = Bar(screen, (0,0,50), 80, 150, (700, 0), 4, "bottom")
+pipe_4 = Bar(screen, "bottom")
 pipe_4.rect.centerx = 780
 pipe_4.rect.top = 250
 

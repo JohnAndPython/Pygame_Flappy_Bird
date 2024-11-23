@@ -1,4 +1,4 @@
-import pygame, sys, random, json
+import pygame, sys, random
 
 from pipe import Bar
 from player import Player
@@ -59,7 +59,6 @@ pl_grp = pygame.sprite.GroupSingle(player_1)
 # Buttons
 resume_button = Button(screen, 25, 500, 150, 50, "Resume")
 quit_button = Button(screen, 225, 500, 150, 50, "Quit")
-
 
 gap = 150
 new_height = 0
@@ -122,9 +121,7 @@ while True:
             bar.rect.centerx = 440
             pipe_grp.add(bar)
 
-   
-
-    # Chck for Game Over
+    # Check for Game Over
     if (pygame.sprite.groupcollide(pipe_grp, pl_grp, False, False)) or (player_1.rect.bottom >= HEIGHT - ground_rect.height):
         game_over = True
         if play_sound:
@@ -144,7 +141,7 @@ while True:
     pipe_grp.update(game_over)
     pl_grp.update()
 
-    # Draw pipes and player and Coin
+    # Draw buildings, pipes, player and Coin
     screen.blit(buildings_surf, (0, 0))
     pipe_grp.draw(screen)
     pl_grp.draw(screen)
@@ -162,7 +159,6 @@ while True:
         resume_button.draw()
         quit_button.draw()
 
-    
     coin_1.animate()
 
     # Animate player

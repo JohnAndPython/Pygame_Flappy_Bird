@@ -3,6 +3,7 @@ import pygame, sys, random, json
 from pipe import Bar
 from player import Player
 from coin import Coin
+from button import Button
 
 import records
 
@@ -55,6 +56,11 @@ player_1 = Player(screen, HEIGHT - ground_rect.height, 0)
 player_1.rect.center = (100, 250)
 pl_grp = pygame.sprite.GroupSingle(player_1)
 
+# Buttons
+resume_button = Button(screen, 25, 500, 150, 50, "Resume")
+quit_button = Button(screen, 225, 500, 150, 50, "Quit")
+
+
 gap = 150
 new_height = 0
 
@@ -77,9 +83,15 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == pygame.KEYDOWN:
+
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and not game_over:
                 player_1.jump()
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.mouse.get_pressed()[0] and game_over and quit_button.collide_mouse:
+                pygame.quit()
+                sys.exit()
     
     for index, bar in enumerate(pipe_grp):
         # Score logic
@@ -137,6 +149,19 @@ while True:
     pipe_grp.draw(screen)
     pl_grp.draw(screen)
     coin_grp.draw(screen)
+
+    if game_over:
+        mouse_pos = pygame.mouse.get_pos()
+        if quit_button.button_rect.collidepoint(mouse_pos):
+            quit_button.set_color((200, 255, 0))
+            quit_button.collide_mouse = True
+        else:
+            quit_button.set_color((250, 200, 0))
+            quit_button.collide_mouse = False
+
+        resume_button.draw()
+        quit_button.draw()
+
     
     coin_1.animate()
 

@@ -1,6 +1,6 @@
 import json
 
-def open_file(filename: str="best_score.json") -> int:
+def from_file(filename: str="best_score.json") -> int:
 
     with open(filename, "r") as data:
         best_score = json.load(data)

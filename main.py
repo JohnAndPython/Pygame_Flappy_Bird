@@ -26,6 +26,10 @@ pygame.mixer.music.play(-1)
 ground_surf = pygame.image.load(r"Assets\ground.png").convert_alpha()
 ground_rect = ground_surf.get_rect()
 
+# Buildings
+buildings_surf = pygame.image.load(r"Assets\building.png").convert_alpha()
+buidlings_rect = ground_surf.get_rect()
+
 # Create initial pipes
 pipe_1 = Bar("top", 1)
 pipe_1.rect.centerx = 500
@@ -54,11 +58,8 @@ pl_grp = pygame.sprite.GroupSingle(player_1)
 gap = 150
 new_height = 0
 
-
-play_sound = True
-
 # Score
-best_score = records.open_file()
+best_score = records.from_file()
 what_id = 1
 score_font = pygame.font.Font(None, 35)
 coin_1 = Coin(10, 10)
@@ -66,6 +67,7 @@ coin_grp = pygame.sprite.GroupSingle(coin_1)
 
 # Game State
 game_over = False
+play_sound = True
 
 while True:
 
@@ -124,13 +126,14 @@ while True:
             play_sound = False
             
 
-    screen.fill((50,100,200))
+    screen.fill((0,200,200))
 
     # Update pipes and player
     pipe_grp.update(game_over)
     pl_grp.update()
 
     # Draw pipes and player and Coin
+    screen.blit(buildings_surf, (0, 0))
     pipe_grp.draw(screen)
     pl_grp.draw(screen)
     coin_grp.draw(screen)
@@ -145,7 +148,9 @@ while True:
     
     # Draw ground
     screen.blit(ground_surf, (0, HEIGHT - ground_rect.bottom))
-    screen.blit(score_font.render(f"{player_1.score}".zfill(4), False, (255, 255, 100)), (50, 15))
+
+    # Draw Score
+    screen.blit(score_font.render(f"{player_1.score}".zfill(4), False, (255, 255, 100)), (35, 12))
 
     pygame.display.update()
     

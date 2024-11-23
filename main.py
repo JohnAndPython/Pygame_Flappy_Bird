@@ -5,6 +5,7 @@ import random
 
 from pipe import Bar
 from player import Player
+from coin import Coin
 
 pygame.init()
 
@@ -22,8 +23,7 @@ music_1 = pygame.mixer.music.load(r"Music\Bittersweet Pixels.mp3")
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
 
-
-
+# Ground
 ground_surf = pygame.image.load(r"Assets\ground.png").convert_alpha()
 ground_rect = ground_surf.get_rect()
 
@@ -61,6 +61,8 @@ play_sound = True
 # Score
 what_id = 1
 score_font = pygame.font.Font(None, 35)
+coin_1 = Coin(10, 10)
+coin_grp = pygame.sprite.GroupSingle(coin_1)
 
 # Game State
 game_over = False
@@ -116,8 +118,8 @@ while True:
         game_over = True
         if play_sound:
             crash_sfx.play()
-            play_sound = False
             pygame.mixer_music.fadeout(3000)
+            play_sound = False
             
 
     # Update pipes and player
@@ -127,6 +129,10 @@ while True:
     # Draw pipes and player
     pipe_grp.draw(screen)
     pl_grp.draw(screen)
+    coin_grp.draw(screen)
+    
+
+    coin_1.animate()
 
     # Animate player
     if not game_over:
@@ -136,7 +142,7 @@ while True:
     
     # Draw ground
     screen.blit(ground_surf, (0, HEIGHT - ground_rect.bottom))
-    screen.blit(score_font.render(f"{player_1.score}".zfill(4), False, (255, 255, 100)), (10, 10))
+    screen.blit(score_font.render(f"{player_1.score}".zfill(4), False, (255, 255, 100)), (50, 15))
 
     pygame.display.update()
     

@@ -2,10 +2,12 @@ import pygame
 
 
 class Bar(pygame.sprite.Sprite):
-    def __init__(self, which) -> None:
+    def __init__(self, which, id) -> None:
         super().__init__()
 
         self.which = which
+        self.id = id
+
 
         if self.which == "top":
             self.image = pygame.image.load(r"Assets\pipe_top.png").convert_alpha()
@@ -17,5 +19,6 @@ class Bar(pygame.sprite.Sprite):
         self.speed = 2
 
 
-    def update(self) -> None:
-        self.rect.centerx -= self.speed
+    def update(self, game_over: bool=False) -> None:
+        if not game_over:
+            self.rect.centerx -= self.speed

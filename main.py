@@ -14,6 +14,16 @@ HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
+# SFX
+crash_sfx = pygame.mixer.Sound(r"Sound\crash.wav")
+
+# Music
+music_1 = pygame.mixer.music.load(r"Music\Bittersweet Pixels.mp3")
+pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.play(-1)
+
+
+
 ground_surf = pygame.image.load(r"Assets\ground.png").convert_alpha()
 ground_rect = ground_surf.get_rect()
 
@@ -45,11 +55,15 @@ pl_grp = pygame.sprite.GroupSingle(player_1)
 gap = 150
 new_height = 0
 
-game_over = False
-what_id = 1
+
+play_sound = True
 
 # Score
+what_id = 1
 score_font = pygame.font.Font(None, 35)
+
+# Game State
+game_over = False
 
 while True:
 
@@ -100,16 +114,21 @@ while True:
     # Chck for Game Over
     if (pygame.sprite.groupcollide(pipe_grp, pl_grp, False, False)) or (player_1.rect.bottom >= HEIGHT - ground_rect.height):
         game_over = True
+        if play_sound:
+            crash_sfx.play()
+            play_sound = False
+            pygame.mixer_music.fadeout(3000)
+            
 
-    # Draw pipes and player
-
+    # Update pipes and player
     pipe_grp.update(game_over)
     pl_grp.update()
 
+    # Draw pipes and player
     pipe_grp.draw(screen)
     pl_grp.draw(screen)
 
-    # Anminate player
+    # Animate player
     if not game_over:
         player_1.animate()
     else:
@@ -119,8 +138,6 @@ while True:
     screen.blit(ground_surf, (0, HEIGHT - ground_rect.bottom))
     screen.blit(score_font.render(f"{player_1.score}".zfill(4), False, (255, 255, 100)), (10, 10))
 
-    
-    
     pygame.display.update()
     
     clock.tick(60)

@@ -1,11 +1,10 @@
-import pygame
-import sys
-import time
-import random
+import pygame, sys, random, json
 
 from pipe import Bar
 from player import Player
 from coin import Coin
+
+import records
 
 pygame.init()
 
@@ -59,6 +58,7 @@ new_height = 0
 play_sound = True
 
 # Score
+best_score = records.open_file()
 what_id = 1
 score_font = pygame.font.Font(None, 35)
 coin_1 = Coin(10, 10)
@@ -78,10 +78,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and not game_over:
                 player_1.jump()
-                
-    screen.fill((50,100,200))
     
-
     for index, bar in enumerate(pipe_grp):
         # Score logic
         if player_1.rect.left > bar.rect.right and bar.id == what_id and player_1.can_score:
@@ -119,19 +116,25 @@ while True:
         if play_sound:
             crash_sfx.play()
             pygame.mixer_music.fadeout(3000)
+
+            if player_1.score > best_score:
+                best_score = player_1.score
+                records.write_record_tofile(best_score)
+
             play_sound = False
             
+
+    screen.fill((50,100,200))
 
     # Update pipes and player
     pipe_grp.update(game_over)
     pl_grp.update()
 
-    # Draw pipes and player
+    # Draw pipes and player and Coin
     pipe_grp.draw(screen)
     pl_grp.draw(screen)
     coin_grp.draw(screen)
     
-
     coin_1.animate()
 
     # Animate player

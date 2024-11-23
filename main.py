@@ -156,6 +156,13 @@ while True:
             quit_button.set_color((250, 200, 0))
             quit_button.collide_mouse = False
 
+        if resume_button.button_rect.collidepoint(mouse_pos):
+            resume_button.set_color((200, 255, 0))
+            resume_button.collide_mouse = True
+        else:
+            resume_button.set_color((250, 200, 0))
+            resume_button.collide_mouse = False
+
         resume_button.draw()
         quit_button.draw()
 

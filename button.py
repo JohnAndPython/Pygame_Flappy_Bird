@@ -23,6 +23,11 @@ class Button:
     def set_color(self, col) -> None:
         self.col = col
 
+
+    def set_text_pos(self) -> None:
+        self.text_rect.center = self.button_rect.center
+
+
     def draw(self) -> None:
         pygame.draw.rect(self.surf, self.col, self.button_rect, border_radius=3)
         self.surf.blit(self.text_surf, self.text_rect)

@@ -1,7 +1,7 @@
 import pygame, random
 
 from pipe import Bar
-from player import Player
+from player import Player, GreyBird, Arrow
 from coin import Coin
 from button import Button
 
@@ -55,10 +55,25 @@ class Game:
         self.player_1.rect.center = (100, 250)
         self.pl_grp = pygame.sprite.GroupSingle(self.player_1)
 
+        # Create Grey Bird
+        self.grey_bird = GreyBird(300, 150)
+        self.gb_grp = pygame.sprite.GroupSingle(self.grey_bird)
+
         # Buttons
         self.resume_button = Button(screen, 25, 500, 150, 50, "Try again (Space)", 25)
         self.quit_button = Button(screen, 225, 500, 150, 50, "Quit (Q)", 30)
 
+        self.space = Button(screen, 225, 500, 150, 50, "Space (UP)", 30, (50, 50, 50))
+        self.space.button_rect.centerx = self.grey_bird.rect.centerx
+        self.space.button_rect.centery = self.player_1.rect.centery
+        self.space.set_text_pos()
+
+        # Create Arrow
+        self.arrow = Arrow(300, 200)
+        self.arrow_grp = pygame.sprite.GroupSingle(self.arrow)
+
+
+        # Gap between Pipes
         self.gap = 150
         self.new_height = 0
 
@@ -126,5 +141,3 @@ class Game:
         self.game_over = False
         self.play_sound = True
         self.game_started = False
-
-        self.play_music()

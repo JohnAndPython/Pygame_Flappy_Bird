@@ -51,3 +51,25 @@ class Player(pygame.sprite.Sprite):
 
     def death_animation(self) -> None:
         self.image = self.death_sprite
+
+
+class GreyBird(pygame.sprite.Sprite):
+    def __init__(self, posx, posy):
+        super().__init__()
+
+        self.image = pygame.image.load(r"Assets\bird_4.png").convert_alpha()
+        self.rect: pygame.rect.Rect = self.image.get_rect()
+
+        self.rect.centerx = posx
+        self.rect.centery = posy
+
+
+class Arrow(pygame.sprite.Sprite):
+    def __init__(self, posx, posy):
+        super().__init__()
+
+        self.image = pygame.image.load(r"Assets\arrow.png").convert_alpha()
+        self.rect: pygame.rect.Rect = self.image.get_rect()
+
+        self.rect.centerx = posx
+        self.rect.centery = posy

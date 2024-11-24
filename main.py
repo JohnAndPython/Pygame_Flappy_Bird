@@ -11,7 +11,6 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 main_game = Game(screen, HEIGHT)
-main_game.play_music()
 
 while True:
 
@@ -19,12 +18,14 @@ while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            main_game._stop_music()
             pygame.quit()
             sys.exit()
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and not main_game.game_started:
             main_game.game_started = True
             main_game.player_1.jump()
+            main_game.play_music()
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and not main_game.game_over:
                 main_game.player_1.jump()
@@ -33,11 +34,13 @@ while True:
                 main_game.reset()
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_q and main_game.game_over:
+            main_game._stop_music()
             pygame.quit()
             sys.exit()
 
         elif event.type == pygame.MOUSEBUTTONDOWN and main_game.quit_button.collide_mouse:
             if pygame.mouse.get_pressed()[0] and main_game.game_over:
+                main_game._stop_music()
                 pygame.quit()
                 sys.exit()
 
@@ -101,6 +104,11 @@ while True:
     main_game.pipe_grp.draw(screen)
     main_game.pl_grp.draw(screen)
     main_game.coin_grp.draw(screen)
+
+    if not main_game.game_started:
+        main_game.gb_grp.draw(screen)
+        main_game.space.draw()
+        main_game.arrow_grp.draw(screen)
 
     if main_game.game_over:
         mouse_pos = pygame.mouse.get_pos()

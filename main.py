@@ -22,9 +22,19 @@ while True:
             pygame.quit()
             sys.exit()
 
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and not main_game.game_over:
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and not main_game.game_started:
+            main_game.game_started = True
+            main_game.player_1.jump()
+
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and not main_game.game_over:
                 main_game.player_1.jump()
+
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and main_game.game_over:
+                main_game.reset()
+
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_q and main_game.game_over:
+            pygame.quit()
+            sys.exit()
 
         elif event.type == pygame.MOUSEBUTTONDOWN and main_game.quit_button.collide_mouse:
             if pygame.mouse.get_pressed()[0] and main_game.game_over:
@@ -33,7 +43,6 @@ while True:
 
         elif event.type == pygame.MOUSEBUTTONDOWN and main_game.resume_button.collide_mouse:
             if pygame.mouse.get_pressed()[0] and main_game.game_over:
-                print("Hellow")
                 main_game.reset()
 
     
@@ -83,8 +92,9 @@ while True:
     screen.fill((0,200,200))
 
     # Update pipes and player
-    main_game.pipe_grp.update(main_game.game_over)
-    main_game.pl_grp.update()
+    if main_game.game_started:
+        main_game.pipe_grp.update(main_game.game_over)
+        main_game.pl_grp.update()
 
     # Draw buildings, pipes, player and Coin
     screen.blit(main_game.buildings_surf, (0, 0))

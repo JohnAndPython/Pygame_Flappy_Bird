@@ -1,16 +1,17 @@
 import pygame
 
 class Button:
-    def __init__(self, surf, posx, posy, width, height, text, col=(250, 200, 0)):
+    def __init__(self, surf, posx, posy, width, height, text, textsize ,col=(250, 200, 0)):
         self.surf = surf
         self.posx = posx
         self.posy = posy
         self.width = width
         self.height = height
         self.text = text
+        self.textsize = textsize
         self.col = col
 
-        self.text_font = pygame.font.Font(None, 30)
+        self.text_font = pygame.font.Font(None, self.textsize)
         self.text_surf = self.text_font.render(f"{self.text}", False, (255, 255, 255))
         self.text_rect = self.text_surf.get_rect()
         self.button_rect = pygame.rect.Rect(self.posx, self.posy, self.width, self.height)

@@ -56,8 +56,8 @@ class Game:
         self.pl_grp = pygame.sprite.GroupSingle(self.player_1)
 
         # Buttons
-        self.resume_button = Button(screen, 25, 500, 150, 50, "Resume")
-        self.quit_button = Button(screen, 225, 500, 150, 50, "Quit")
+        self.resume_button = Button(screen, 25, 500, 150, 50, "Try again (Space)", 25)
+        self.quit_button = Button(screen, 225, 500, 150, 50, "Quit (Q)", 30)
 
         self.gap = 150
         self.new_height = 0
@@ -72,6 +72,7 @@ class Game:
         # Game State
         self.game_over = False
         self.play_sound = True
+        self.game_started = False
 
 
     def play_music(self) -> None:
@@ -93,22 +94,18 @@ class Game:
         new_height = random.randint(50, 350)
         gap = random.randint(150, 170)
 
-        self.pipe_1 = Bar("top", 1)
         self.pipe_1.rect.centerx = 500
         self.pipe_1.rect.bottom = new_height
 
-        self.pipe_2 = Bar("bottom", 2)
         self.pipe_2.rect.centerx = 500
         self.pipe_2.rect.top = new_height + gap
 
         new_height = random.randint(50, 350)
         gap = random.randint(150, 170)
 
-        self.pipe_3 = Bar("top", 3)
         self.pipe_3.rect.centerx = 780
         self.pipe_3.rect.bottom = new_height
 
-        self.pipe_4 = Bar("bottom", 4)
         self.pipe_4.rect.centerx = 780
         self.pipe_4.rect.top = new_height + gap
 
@@ -128,5 +125,6 @@ class Game:
         # Game state
         self.game_over = False
         self.play_sound = True
+        self.game_started = False
 
         self.play_music()

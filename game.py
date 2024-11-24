@@ -4,6 +4,7 @@ from pipe import Bar
 from player import Player, GreyBird, Arrow
 from coin import Coin
 from button import Button
+from scoreboard import Scoreboard
 
 import records
 
@@ -72,7 +73,6 @@ class Game:
         self.arrow = Arrow(300, 200)
         self.arrow_grp = pygame.sprite.GroupSingle(self.arrow)
 
-
         # Gap between Pipes
         self.gap = 150
         self.new_height = 0
@@ -83,6 +83,9 @@ class Game:
         self.score_font = pygame.font.Font(None, 35)
         self.coin_1 = Coin(10, 10)
         self.coin_grp = pygame.sprite.GroupSingle(self.coin_1)
+
+        # Create scoreboard
+        self.scoreboard = Scoreboard(screen, 100, 100, 200, 100, self.player_1.score, self.best_score, 30)
 
         # Game State
         self.game_over = False
@@ -136,6 +139,7 @@ class Game:
         # Score
         self.what_id = 1
         self.player_1.score = 0
+        self.scoreboard.text_score = 0
 
         # Game state
         self.game_over = False

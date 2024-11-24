@@ -55,6 +55,7 @@ while True:
             if main_game.player_1.can_score:
                 main_game.player_1.can_score = False
                 main_game.player_1.score += 1
+                main_game.scoreboard.set_score(main_game.player_1.score)
 
                 if main_game.what_id == 1:
                     main_game.what_id = 3
@@ -87,6 +88,7 @@ while True:
 
             if main_game.player_1.score > main_game.best_score:
                 main_game.best_score = main_game.player_1.score
+                main_game.scoreboard.set_record(main_game.best_score)
                 records.write_record_tofile(main_game.best_score)
 
             main_game.play_sound = False
@@ -128,6 +130,8 @@ while True:
 
         main_game.resume_button.draw()
         main_game.quit_button.draw()
+        main_game.scoreboard.render()
+        main_game.scoreboard.draw()
 
     main_game.coin_1.animate()
 

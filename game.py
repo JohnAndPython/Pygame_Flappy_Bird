@@ -1,4 +1,4 @@
-import pygame
+import pygame, random
 
 from pipe import Bar
 from player import Player
@@ -25,21 +25,27 @@ class Game:
         self.buidlings_rect = self.ground_surf.get_rect()
 
         # Create initial pipes
+        new_height = random.randint(50, 350)
+        gap = random.randint(150, 170)
+
         self.pipe_1 = Bar("top", 1)
         self.pipe_1.rect.centerx = 500
-        self.pipe_1.rect.bottom = 200
+        self.pipe_1.rect.bottom = new_height
 
         self.pipe_2 = Bar("bottom", 2)
         self.pipe_2.rect.centerx = 500
-        self.pipe_2.rect.top = 350
+        self.pipe_2.rect.top = new_height + gap
+
+        new_height = random.randint(50, 350)
+        gap = random.randint(150, 170)
 
         self.pipe_3 = Bar("top", 3)
         self.pipe_3.rect.centerx = 780
-        self.pipe_3.rect.bottom = 100
+        self.pipe_3.rect.bottom = new_height
 
         self.pipe_4 = Bar("bottom", 4)
         self.pipe_4.rect.centerx = 780
-        self.pipe_4.rect.top = 250
+        self.pipe_4.rect.top = new_height + gap
 
         self.pipe_grp = pygame.sprite.Group()
         self.pipe_grp.add((self.pipe_1, self.pipe_2, self.pipe_3, self.pipe_4))
@@ -71,3 +77,56 @@ class Game:
     def play_music(self) -> None:
         pygame.mixer.music.set_volume(0.3)
         pygame.mixer.music.play(-1)
+
+    
+    def _stop_music(self) -> None:
+        pygame.mixer.music.stop()
+
+
+    def reset(self) -> None:
+
+        self._stop_music()
+
+        self.pipe_grp.empty()
+
+        # Create initial pipes
+        new_height = random.randint(50, 350)
+        gap = random.randint(150, 170)
+
+        self.pipe_1 = Bar("top", 1)
+        self.pipe_1.rect.centerx = 500
+        self.pipe_1.rect.bottom = new_height
+
+        self.pipe_2 = Bar("bottom", 2)
+        self.pipe_2.rect.centerx = 500
+        self.pipe_2.rect.top = new_height + gap
+
+        new_height = random.randint(50, 350)
+        gap = random.randint(150, 170)
+
+        self.pipe_3 = Bar("top", 3)
+        self.pipe_3.rect.centerx = 780
+        self.pipe_3.rect.bottom = new_height
+
+        self.pipe_4 = Bar("bottom", 4)
+        self.pipe_4.rect.centerx = 780
+        self.pipe_4.rect.top = new_height + gap
+
+        self.pipe_grp.add((self.pipe_1, self.pipe_2, self.pipe_3, self.pipe_4))
+
+        # Player
+        self.player_1.rect.center = (100, 250)
+        self.player_1.vert_speed = 0
+
+        self.gap = 150
+        self.new_height = 0
+
+        # Score
+        self.what_id = 1
+        self.player_1.score = 0
+
+        # Game state
+        self.game_over = False
+        self.play_sound = True
+
+        self.play_music()

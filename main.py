@@ -1,7 +1,5 @@
 import pygame, sys, random
-
 import records
-
 from game import Game
 
 pygame.init()
@@ -28,10 +26,16 @@ while True:
             if event.key == pygame.K_SPACE and not main_game.game_over:
                 main_game.player_1.jump()
 
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if pygame.mouse.get_pressed()[0] and main_game.game_over and main_game.quit_button.collide_mouse:
+        elif event.type == pygame.MOUSEBUTTONDOWN and main_game.quit_button.collide_mouse:
+            if pygame.mouse.get_pressed()[0] and main_game.game_over:
                 pygame.quit()
                 sys.exit()
+
+        elif event.type == pygame.MOUSEBUTTONDOWN and main_game.resume_button.collide_mouse:
+            if pygame.mouse.get_pressed()[0] and main_game.game_over:
+                print("Hellow")
+                main_game.reset()
+
     
     for index, bar in enumerate(main_game.pipe_grp):
         # Score logic
